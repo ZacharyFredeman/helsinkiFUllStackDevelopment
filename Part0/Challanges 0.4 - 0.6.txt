@@ -1,0 +1,49 @@
+0.4 New note diagram
+user input submit event(http post request) -> server(new note)
+
+browser POST(https://studies.cs.helsinki.fi/exampleapp/new_note)-> Server
+Server URL redirect _> browser HTTP 302
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/notes) -> Server
+server -> html document
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/main.css)-> Server
+server -> browser css file
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/main.js) -> server
+server -> browser the js file
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/data.json) -> server
+server -> json data
+
+
+0.5 Single page diagram
+browser GET(https://studies.cs.helsinki.fi/exampleapp/spa) -> server  
+server -> html document
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/main.css) -> server
+server -> css file
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/spa.js) -> server
+server -> js file
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/data.json) -> server
+server -> json data
+
+
+0.6 new note sinlge page app
+browser GET(https://studies.cs.helsinki.fi/exampleapp/spa) -> server  
+server -> html document
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/main.css) -> server
+server -> css file
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/spa.js) -> server
+server -> js file
+
+browser GET(https://studies.cs.helsinki.fi/exampleapp/data.json) -> server
+server -> json data
+
+browser POST(https://studies.cs.helsinki.fi/exampleapp/new_note_spa)-> server
+server st atus code 201 created -> browser
+
