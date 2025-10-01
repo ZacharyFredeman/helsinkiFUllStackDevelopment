@@ -2,32 +2,30 @@
 const App = () => {
   const course = 'Half Stack application development'
   const parts = [
-    
+    {
+      name: 'Fundamentals of React',
+      exercises: 10
+    },
+    {
+      name: 'Using props to pass data',
+      exercises: 7
+    },
+    {
+      name: 'State of a component',
+      exercises: 14
+    }
   ]
-  const part1 = {
-    name: 'Fundamentals of React',
-    exercises: 10
-  }
-  const part2 = {
-    name: 'Using props to pass data',
-    exercises: 7
-  }
-  const part3 = {
-    name: 'State of a component',
-    exercises: 14
-  }
 
   return (
     <div>
       <Header course = {course} />
-      <Content2 exercise1 = {part1.name} amount1 = {part1.exercises} exercise2 = {part2.name} amount2 = {part2.exercises} exercise3 = {part3.name} amount3 = {part3.exercises} />
-      <Total total = {part1.exercises + part2.exercises + part3.exercises}/>
+      <Content2 parts = {parts} />
+      <Total total = {parts}/>
     </div>
   )
 }
 
 const Header = (props) =>{
-  console.log (props)
   return(
   <div>
     <p>{props.course}</p>
@@ -35,21 +33,13 @@ const Header = (props) =>{
   )
 }
 
-const Content = (props) =>{
-  return(
-  <div>
-    <p>{props.exercise} {props.amount}</p>
-  </div>
-  )
-}
-
 const Content2 = (props) => {
-  console.log(props)
+  console.log(props.parts[0])
   return (
     <div>
-      <Part exercise = {props.exercise1} amount = {props.amount1} />
-      <Part exercise = {props.exercise2} amount = {props.amount2}/>
-      <Part exercise = {props.exercise3} amount = {props.amount3}/>
+      <Part exercise = {props.parts[0].name} amount = {props.parts[0].exercises} />
+      <Part exercise = {props.parts[1].name} amount = {props.parts[1].exercises}/>
+      <Part exercise = {props.parts[2].name} amount = {props.parts[2].exercises}/>
     </div>
   )
 }
@@ -63,10 +53,9 @@ const Part = (props) =>{
 }
 
 const Total = (props) =>{
-  console.log (props.total)
   return(
   <div>
-     <p>Number of exercises {props.total} </p>
+     <p>Number of exercises {props.total[0].exercises + props.total[1].exercises + props.total[2].exercises} </p>
   </div>
   )
 }
