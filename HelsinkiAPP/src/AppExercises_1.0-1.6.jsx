@@ -32,7 +32,7 @@ const App = () => {
 const Header = (props) =>{
   return(
   <div>
-    <p>{props.course}</p>
+    <h1>{props.course}</h1>
   </div>
   )
 }
