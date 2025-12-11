@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import phonebookService from './services/phonebook'
+import Notification from './components/Notification'
+import ErrorMessage from './components/ErrorMessage'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
+  const [notification, setNotification] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
 
 
   const hook = ()=>{
@@ -28,6 +32,10 @@ const App = () => {
           setPersons(persons.map(uperson=> uperson.id === person.id ? returnedPerson : uperson))
           setNewName('')
           setNewNumber('')
+          setNotification(`Changed ${returnedPerson.name} number to ${returnedPerson.number}`)
+          setTimeout(()=>{
+            setNotification(null)
+          }, 5000)
         })
         return
       }
@@ -47,6 +55,10 @@ const App = () => {
       setPersons(persons.concat(personCreated))
       setNewName('')
       setNewNumber('')
+      setNotification(`Added ${personCreated.name}`)
+      setTimeout(()=>{
+        setNotification(null)
+      }, 5000)
     })
   }
 
@@ -76,7 +88,11 @@ const App = () => {
         .then(intialPeople => {setPersons(intialPeople)})
       })
       .catch(error=>{
-        alert(`the person '${personToDelete.name}' was already deleted from the server`)
+        //alert(`the person '${personToDelete.name}' was already deleted from the server`)
+        setErrorMessage(`Information of '${personToDelete.name}' was already deleted from the server`)
+        setTimeout(()=>{
+          setErrorMessage(null)
+        }, 5000)
         setPersons(persons.filter(p=> p.id !== id))
       })
     }
@@ -91,7 +107,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
+      <Notification message={notification}/>
+      <ErrorMessage message={errorMessage}/>
       <Filter newValue = {filter} change={handleFilterChange}/>
      
       <h2>Add a new</h2>
@@ -141,5 +158,6 @@ const PersonInfo = ({person, deletePerson}) =>{
     </div>
     )
 }
+
 
 export default App
