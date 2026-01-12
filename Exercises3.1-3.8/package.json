@@ -1,0 +1,17 @@
+{
+  "name": "exercises_3.1-3.8",
+  "version": "1.0.0",
+  "description": "exercises 3.1 to 3.8 helsinki fuillstack development",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zach",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "morgan": "^1.10.1"
+  }
+}
