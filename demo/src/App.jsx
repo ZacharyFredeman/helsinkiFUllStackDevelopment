@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import Note from './components/Notes'
 import noteService from './services/notes'
-import './index.css'
 import Notification from './components/Notification'
 import Footer from './components/Footer'
 
@@ -22,12 +20,12 @@ const App = (props) => {
   
   //console.log('render', notes.length, 'notes')
 
-  const  addNote = (event) =>{
+  const addNote = (event) =>{
     event.preventDefault()
-    console.log('button clicked', event.target)
+    //console.log('button clicked', event.target)
     const noteObject = {
       content: newNote,
-      important: Math.random() < 0.5,
+      important: Math.random() > 0.5
     }
     
     noteService.create(noteObject)
@@ -38,27 +36,29 @@ const App = (props) => {
   }
 
   const handleNoteChange = (event) =>{
-    console.log(event.target.value)
+    //console.log(event.target.value)
     setNewNote(event.target.value)
   }
 
   const toggleImportanceOf = (id) => {
-    const note = notes.find(n=> n.id == id)
+    const note = notes.find(n=> n.id === id)
     const changedNote = {...note, important: !note.important}
 
-    noteService.update(id, changedNote)
-    .then(returnedNote =>{
-      setNotes(notes.map(note=> note.id === id ? returnedNote : note))
-    })
-    .catch(error=>{
-      setErrorMessage(
-          `Note '${note.content}' was already removed from server`
+    noteService
+      .update(id, changedNote)
+      .then(returnedNote =>{
+        setNotes(prevNotes =>
+          prevNotes.map(note => (note.id === id ? returnedNote : note))
         )
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-      setNotes(notes.filter(n => n.id !== id))
-    })
+
+      })
+      .catch(error=>{
+        setErrorMessage(`Note '${note.content}' was already removed from server`)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        setNotes(notes.filter(n => n.id !== id))
+      })
   }
 
 

@@ -13,17 +13,17 @@ app.use(express.static('dist'))
 
 let notes = [
   {
-    id: "1",
+    id: '1',
     content: "HTML is easy",
     important: true
   },
   {
-    id: "2",
+    id: '2',
     content: "Browser can execute only JavaScript",
     important: false
   },
   {
-    id: "3",
+    id: '3',
     content: "GET and POST are the most important methods of HTTP protocol",
     important: true
   }
@@ -36,6 +36,33 @@ let notes = [
 // const PORT = 3001
 // app.listen(PORT)
 // console.log(`Server running on port ${PORT}`)
+app.put('/api/notes/:id', (request, response) => {
+  const id = request.params.id
+  const body = request.body
+
+  const note = notes.find(n => n.id === id)
+
+  const updatedNote = {
+    ...note,
+    content: body.content,
+    important: body.important
+  }
+
+  notes = notes.map(n => n.id !== id ? n : updatedNote)
+
+  response.json(updatedNote)
+})
+
+
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+
+app.use(requestLogger)
 
 
 app.get('/', (request, response) => {
@@ -46,7 +73,7 @@ app.get('/api/notes', (request, response) => {
   response.json(notes)
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
